@@ -1,0 +1,1 @@
+// Implementacja kolejki priorytetowej pod postacią listy wiązanej
