@@ -1,7 +1,7 @@
 // Klasa abstrakcyjna repreezentująca strukturę kolejki priorytetowej
 
-#ifndef PRIORITYQUEUE_H
-#define PRIORITYQUEUE_H
+#ifndef PRIORITYQUEUE_HPP
+#define PRIORITYQUEUE_HPP
 
 template <typename T>
 class PriorityQueue {
@@ -25,6 +25,10 @@ public:
     
     // Sprawdzenie czy kolejka jest pusta
     virtual bool empty() const = 0;
+
+    const T& peek() const { return findMax(); }
+
+    T pop() { return extractMax(); }
     
 };
 
