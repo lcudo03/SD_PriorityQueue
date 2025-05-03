@@ -9,3 +9,6 @@ target_include_directories(DataStructures_lib INTERFACE ${CMAKE_CURRENT_SOURCE_D
 
 add_executable(test ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 target_link_libraries(test DataStructures_lib)
+
+add_executable(testOfPerformance ${CMAKE_CURRENT_SOURCE_DIR}/src/PerformanceTests.cpp)
+target_link_libraries(testOfPerformance DataStructures_lib)
