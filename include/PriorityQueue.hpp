@@ -29,6 +29,8 @@ public:
     const T& peek() const { return findMax(); }
 
     T pop() { return extractMax(); }
+
+    virtual void display() const = 0;
     
 };
 

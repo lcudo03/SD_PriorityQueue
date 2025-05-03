@@ -3,6 +3,7 @@
 
 #include "PriorityQueue.hpp"
 #include <stdexcept>
+#include <iostream>
 
 template <typename T>
 class LinkedListPriorityQueue : public PriorityQueue<T> {
@@ -17,6 +18,12 @@ public:
     size_t size() const override;
     bool empty() const override;
 
+    void display() const override;
+
+    int findMaxPriority() const {
+        Node* maxNode = findMaxNode();
+        return maxNode->priority;
+    }
 private:
     struct Node {
         T element;
@@ -153,4 +160,28 @@ LinkedListPriorityQueue<T>::findPrevNode(Node* target) const {
     }
     return current;
 }
+
+template <typename T>
+void LinkedListPriorityQueue<T>::display() const {
+    if (empty()) {
+        std::cout << "Lista jest pusta." << std::endl;
+        return;
+    }
+
+    // Utwórz kopię do wyświetlenia
+    LinkedListPriorityQueue<T> copy;
+    Node* current = head;
+    while (current != nullptr) {
+        copy.insert(current->element, current->priority);
+        current = current->next;
+    }
+
+    std::cout << "Zawartosc listy (element: priorytet):" << std::endl;
+    while (!copy.empty()) {
+        T element = copy.extractMax();
+        int priority = copy.empty() ? 0 : copy.findMaxPriority();
+        std::cout << element << ": " << priority << std::endl;
+    }
+}
+
 #endif // LINKEDLISTPRIORITYQUEUE_HPP

@@ -5,7 +5,9 @@
 
 #include "PriorityQueue.hpp"
 #include "DynamicArray.hpp"
+#include <stdexcept>
 #include <utility>
+#include <iostream>
 
 template <typename T>
 class Heap : public PriorityQueue<T> {
@@ -19,6 +21,12 @@ public:
     size_t size() const override;
     bool empty() const override;
 
+    void display() const override;
+
+    int findMaxPriority() const {
+        if (empty()) throw std::runtime_error("Kolejka jest pusta");
+        return heap[0].second;
+    }
 private:
     DynamicArray<std::pair<T, int>> heap;
     
@@ -127,6 +135,27 @@ size_t Heap<T>::findElementIndex(const T& e) const {
         }
     }
     throw std::runtime_error("Niee znaleziono elementu w kolejce");
+}
+
+template <typename T>
+void Heap<T>::display() const {
+    if (empty()) {
+        std::cout << "Kopiec jest pusty." << std::endl;
+        return;
+    }
+
+    // Utwórz kopię do wyświetlenia
+    Heap<T> copy;
+    for (size_t i = 0; i < heap.getSize(); ++i) {  // Zmienione na getSize()
+        copy.insert(heap[i].first, heap[i].second);
+    }
+
+    std::cout << "Zawartosc kopca (element: priorytet):" << std::endl;
+    while (!copy.empty()) {
+        T element = copy.extractMax();
+        int priority = copy.empty() ? 0 : copy.findMaxPriority();
+        std::cout << element << ": " << priority << std::endl;
+    }
 }
 
 #endif // HEAP_HPP
