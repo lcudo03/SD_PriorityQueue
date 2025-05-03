@@ -1,7 +1,7 @@
 // Implementacja kolejki priorytetowej pod postacią kopca binarnego
 
-#ifndef HEAPPRIORITYQUEUE_HPP
-#define HEAPPRIORITYQUEUE_HPP
+#ifndef HEAP_HPP
+#define HEAP_HPP
 
 #include "PriorityQueue.hpp"
 #include "DynamicArray.hpp"
@@ -129,4 +129,4 @@ size_t Heap<T>::findElementIndex(const T& e) const {
     throw std::runtime_error("Niee znaleziono elementu w kolejce");
 }
 
-#endif
+#endif // HEAP_HPP

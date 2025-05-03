@@ -1,0 +1,1 @@
+// Przyszla Impleementacja Tablicy Dyn

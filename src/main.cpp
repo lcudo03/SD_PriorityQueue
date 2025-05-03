@@ -3,7 +3,7 @@
 #include <chrono>
 #include <string>
 #include "Heap.hpp"
-//#include "LinkedList.hpp"
+#include "LinkedListPriorityQueue.hpp"
 
 template <typename PQ>
 void testPriorityQueue(PQ& pq, const std::string& name) {
@@ -54,10 +54,10 @@ void testPriorityQueue(PQ& pq, const std::string& name) {
 
 int main() {
     Heap<std::string> binaryHeapPQ;
-    //LinkedList<std::string> linkedListPQ;
+    LinkedListPriorityQueue<std::string> linkedListPQ;
     
     testPriorityQueue(binaryHeapPQ, "Binary Heap Priority Queue");
-    //testPriorityQueue(linkedListPQ, "Linked List Priority Queue");
+    testPriorityQueue(linkedListPQ, "Linked List Priority Queue");
     
     return 0;
 }
