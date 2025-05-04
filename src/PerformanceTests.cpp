@@ -57,6 +57,10 @@ void testStructurePerformance(const std::vector<std::pair<int, int>>& data,
             pq.insert(item.first, item.second);
         }
     }, 1); // Tylko 1 wykonanie dla insert
+
+    double sizeTime = measureAvgTime([&]() {
+        volatile auto s = pq.size(); // volatile aby zapobiec optymalizacji
+    }, reps);
     
     // Test findMax - wykonany wielokrotnie
     double findMaxTime = measureAvgTime([&]() {
@@ -101,6 +105,7 @@ void testStructurePerformance(const std::vector<std::pair<int, int>>& data,
     std::ofstream out(structureName + "_results.csv", std::ios::app);
     out << data.size() << ","
         << insertTime << ","
+        << sizeTime << ","
         << findMaxTime << ","
         << avgExtractMaxTime << ","
         << avgModifyKeyTime << "\n";
@@ -113,7 +118,7 @@ int main() {
     
     // Nagłówki w plikach CSV
     std::ofstream bh_out("Heap_results.csv");
-    bh_out << "Size,InsertTime,FindMaxTime,ExtractMaxTime,ModifyKeyTime\n";
+    bh_out << "Size,InsertTime,FindMaxTime,ExtractMaxTime,ModifyKeyTime,ReturnigSize\n";
     bh_out.close();
     
     std::ofstream ll_out("LinkedList_results.csv");
