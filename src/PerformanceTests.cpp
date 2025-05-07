@@ -67,7 +67,11 @@ void testStructurePerformance(const std::vector<std::pair<int, int>>& data,
     
     // Test znajdowania maksimum
     double findMaxTime = measureAvgTime([&]() {
-        volatile auto max = pq.findMax();
+        // Zmiana priorytetu losowego elementu, aby maksimum mogło się zmienić
+        int randomIndex = rand() % data.size();
+        pq.modifyKey(data[randomIndex].first, data[randomIndex].second + 1);
+        
+        volatile auto max = pq.findMax(); // Wymusza pełne przeszukanie
     }, reps);
     
     // Test usuwania maksimum (dla wszystkich elementów)
@@ -122,11 +126,11 @@ int main() {
     
     // Przygotowanie plików wynikowych
     std::ofstream bh_out("Heap_results.csv");
-    bh_out << "Size,InsertTime,FindMaxTime,ExtractMaxTime,ModifyKeyTime,ReturnigSize\n";
+    bh_out << "Size,InsertTime,SizeTime,FindMaxTime,ExtractMaxTime,ModifyKeyTime\n";
     bh_out.close();
     
     std::ofstream ll_out("LinkedList_results.csv");
-    ll_out << "Size,InsertTime,FindMaxTime,ExtractMaxTime,ModifyKeyTime\n";
+    ll_out << "Size,InsertTime,SizeTime,FindMaxTime,ExtractMaxTime,ModifyKeyTime\n";
     ll_out.close();
     
     // Test dla każdego rozmiaru danych
